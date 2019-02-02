@@ -13,7 +13,11 @@ function outArray = gameOfLife(seedArray)
 neighboursKernel = [1 1 1 ; 1 0 1; 1 1 1];
 numNeighbours = conv2(seedArray, neighboursKernel, 'same');
 
-% cells in output are live where they were live before AND had at least 2
-% neighbours
-outArray = seedArray & numNeighbours >= 2;
+% cells in output are live where:
+% they were live before
+% AND had at least 2 neighbours
+% AND had no more than 3 2 neighbours
+outArray = seedArray ...
+    & numNeighbours >= 2 ...
+    & numNeighbours <= 3;
 end
