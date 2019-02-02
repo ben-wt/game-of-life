@@ -9,8 +9,11 @@ function outArray = gameOfLife(seedArray)
 %
 % BT, Feb 2019
 
-% scenario 0 - check if no live cells, then no change
-if isequal(seedArray, zeros(size(seedArray)))
-    outArray = seedArray;
-end
+% use convolution to count the number of live neighbours for every cell
+neighboursKernel = [1 1 1 ; 1 0 1; 1 1 1];
+numNeighbours = conv2(seedArray, neighboursKernel, 'same');
+
+% cells in output are live where they were live before AND had at least 2
+% neighbours
+outArray = seedArray & numNeighbours >= 2;
 end
