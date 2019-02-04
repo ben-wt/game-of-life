@@ -219,9 +219,9 @@ end
 
 % Report result. If any examples are failed, return which ones.
 if all(success_tally)
-    display('Passed test scenario 3');
+    display('Passed test scenario 4');
 else
-    display(['FAILED test scenario 3. Failed examples ' num2str(find(~success_tally)) '.']);
+    display(['FAILED test scenario 4. Failed examples ' num2str(find(~success_tally)) '.']);
 end
                 
                 
