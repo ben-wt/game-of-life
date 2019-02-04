@@ -224,6 +224,37 @@ else
     display(['FAILED test scenario 4. Failed examples ' num2str(find(~success_tally)) '.']);
 end
                 
-                
-                
+%% Test scenario 5: Grid with no live cells
+% Given a game of life with the initial state containing no live cells
+% When the game evolves one turn
+% Then the next state also contains no live cells
+
+clear
+
+% check some randomly sized arrays between 1 and 1000 with no live cells
+arraySizes = round(1000*rand(10,1));
+success_tally = zeros(1, length(arraySizes));
+
+for s = 1:length(arraySizes)
+    siz = arraySizes(s);
+    seedArray = zeros(siz,siz);
+    % required result - same size, no live cells
+    reqArray = seedArray;
+    
+    % run the engine
+    outArray = gameOfLife(seedArray);
+
+    % check output
+    if isequal(outArray,reqArray)
+        success_tally(s) = 1;
+    end
+end
+
+% Report result. If any examples are failed, return which ones.
+if all(success_tally)
+    display('Passed test scenario 5');
+else
+    display(['FAILED test scenario 5. Failed examples ' num2str(find(~success_tally)) '.']);
+end
+         
                 
