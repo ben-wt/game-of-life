@@ -257,4 +257,42 @@ else
     display(['FAILED test scenario 5. Failed examples ' num2str(find(~success_tally)) '.']);
 end
          
+%% Scenario 6: Expected game outcome for seeded grid
+
+clear
+
+% expected sequence as follows
+seedArray =     [   0   0   0   0   0;
+                    0   0   0   0   0;
+                    0   1   1   1   0;
+                    0   0   0   0   0;
+                    0   0   0   0   0   ];
+reqArray{1} =     [ 0   0   0   0   0;
+                    0   0   1   0   0;
+                    0   0   1   0   0;
+                    0   0   1   0   0;
+                    0   0   0   0   0   ];
+reqArray{2} =     [ 0   0   0   0   0;
+                    0   0   0   0   0;
+                    0   1   1   1   0;
+                    0   0   0   0   0;
+                    0   0   0   0   0   ];
+
+%initialise
+currentArray = seedArray;    
+% run the engine and check each output - only need to check central cell
+success_tally = zeros(1, 2);
+for s = 1:2
+    currentArray = gameOfLife(currentArray);
+    if isequal(currentArray,reqArray{s})
+        success_tally(s) = 1;
+    end
+end
+
+% Report result. If any any steps give the wrong state, return which ones.
+if all(success_tally)
+    display('Passed test scenario 6');
+else
+    display(['FAILED test scenario 6. Incorrect states after step(s) ' num2str(find(~success_tally)) '.']);
+end
                 
