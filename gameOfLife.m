@@ -17,6 +17,7 @@ numNeighbours = conv2(seedArray, neighboursKernel, 'same');
 % (they were live before AND had at least 2 neighbours AND had no more than 3 neighbours)
 % OR
 % (they were dead before AND have exactly 3 neighbours)
-outArray = (seedArray & numNeighbours >= 2 & numNeighbours <= 3)...
-            | (~seedArray & numNeighbours == 3);
+% and set the output to standard number format (double-precision) so it can be fed back in
+outArray = double((seedArray & numNeighbours >= 2 & numNeighbours <= 3)...
+            | (~seedArray & numNeighbours == 3));
 end
