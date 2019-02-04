@@ -108,3 +108,62 @@ else
     display(['FAILED test scenario 2. Failed examples ' num2str(find(~success_tally)) '.']);
 end
 
+%% Test scenario 3: Survival
+% Given a game of life
+% When a live cell has two or three neighbours
+% Then this cell stays alive
+
+
+clear
+
+% some different overcrowding distributions around central cell in array
+seedArray{1} =  [   0   0   0   0   0;
+                    0   1   1   0   0;
+                    0   0   1   1   0;
+                    0   0   0   0   0;
+                    0   0   0   0   0   ];
+seedArray{2} =  [   0   0   0   0   0;
+                    0   0   0   0   0;
+                    0   0   1   1   0;
+                    0   0   1   0   0;
+                    0   0   0   0   0];
+seedArray{3} =  [   0   0   0   0   0;
+                    0   0   0   1   0;
+                    0   0   1   0   0;
+                    0   1   0   1   0;
+                    0   0   0   0   0   ];
+seedArray{4} =  [   0   0   0   0   0;
+                    0   1   0   0   0;
+                    0   0   1   0   0;
+                    0   0   1   1   0;
+                    0   0   0   0   0   ];
+seedArray{5} =  [   0   0   0   0   0;
+                    0   1   0   0   0;
+                    0   0   1   0   0;
+                    0   0   0   1   0;
+                    0   0   0   0   0   ];
+seedArray{6} =  [   0   0   0   0   0;
+                    0   0   0   0   0;
+                    0   0   1   0   0;
+                    0   1   1   0   0;
+                    0   0   0   0   0   ];
+                
+% run the engine and check each output - only need to check central cell
+success_tally = zeros(1, length(seedArray));
+for t = 1:length(seedArray)
+    outArray = gameOfLife(seedArray{t});
+    if outArray(3,3) == 1
+        success_tally(t) = 1;
+    end
+end
+
+% Report result. If any examples are failed, return which ones.
+if all(success_tally)
+    display('Passed test scenario 3');
+else
+    display(['FAILED test scenario 3. Failed examples ' num2str(find(~success_tally)) '.']);
+end                
+                
+                
+                
+                
