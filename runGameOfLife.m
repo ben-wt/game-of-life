@@ -22,6 +22,8 @@ if strcmp(displayOptions, 'continuous')
     ax = axes;
     % draw grid 
     im = image(currentArray, 'CDataMapping', 'scaled', 'Visible', 'off');
+    title('Game of Life')
+    xlabel(['Generation 0'])
     formatDisplay(ax, size(currentArray));
     im.Visible = 'on';
 end
@@ -36,6 +38,8 @@ for s=1:numSteps
     if strcmp(displayOptions, 'continuous')
         % CData - draw on the axes retaining existing formatting
         image('CData', currentArray, 'CDataMapping', 'scaled')
+        % Label the generation number
+        xlabel(['Generation ' num2str(s)])
     end
 end
 
