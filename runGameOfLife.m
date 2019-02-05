@@ -1,4 +1,4 @@
-function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType)
+function outArray = runGameOfLife(seedArray, numSteps, displayOptions)
 %runGameOfLife: Performs specified number of steps in Game of Life, using
 %specified seed. Option for visual display, including "End now" button.
 %
@@ -6,10 +6,7 @@ function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType
 % seedArray - 2D matrix (0 for dead cells, 1 for live cells)
 % numSteps - positive integer, number of game steps to perform
 % displayOptions - string - 'continuous' displays progress of game frame-
-%                   by-frame with a 0.5 second pause. Any other value gives
-%                   no display.
-% worldType - string, as per inputs to gameOfLife
-%
+% by-frame with a 0.5 second pause. Any other value gives no display.
 % OUTPUT
 % outArray - 2D matrix (0 for dead cells, 1 for live cells)
 %
@@ -19,6 +16,7 @@ function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType
 % per-generation pause, accelerating the game directly to the end.
 %
 % BT, Feb 2019
+
 
 % initialise
 currentArray = seedArray;
@@ -56,8 +54,7 @@ for s=1:numSteps
         end
 
     end
-    % carry out GoL step
-    currentArray = gameOfLife(currentArray, worldType);
+    currentArray = gameOfLife(currentArray);
     if strcmp(displayOptions, 'continuous')
         % CData - draw on the axes retaining existing formatting
         image('CData', currentArray, 'CDataMapping', 'scaled')
