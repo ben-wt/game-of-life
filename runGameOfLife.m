@@ -1,14 +1,18 @@
-function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType)
+function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType, stepTime)
 %runGameOfLife: Performs specified number of steps in Game of Life, using
 %specified seed. Option for visual display, including "End now" button.
 %
 % INPUT
 % seedArray - 2D matrix (0 for dead cells, 1 for live cells)
-% numSteps - positive integer, number of game steps to perform
-% displayOptions - string (case-insensitive)
-%                   - 'continuous' displays progress of game frame-by-frame
-%                   with 0.5 second pause. Any other value gives no display.
+% numSteps - positive integer OR inf - number of game steps to perform
+% displayOptions - can be a string (case-insensitive) - 'continuous'
+%                   displays progress of game frame-by-frame. Any other
+%                   value gives no display.
 % worldType - string, as per inputs to gameOfLife
+% stepTime - OPTIONAL - positive number - if displayOptions is 'continuous',
+%               this specifies seconds per generation (N.B. this excludes
+%               processing time, which could be long for extremely large
+%               game worlds)
 %
 % OUTPUT
 % outArray - 2D matrix (0 for dead cells, 1 for live cells)
@@ -22,9 +26,17 @@ function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType
 
 %% validate numSteps input (seedArray & worldType already validated within gameOfLife)
 
-% numSteps should be a single positive integer
-if ~isscalar(numSteps) || rem(numSteps, 1) ~= 0 || numSteps < 1
+% numSteps should be a single number, positive, and either integer OR infinite
+if ~isscalar(numSteps) || numSteps < 1 || (rem(numSteps, 1) ~= 0 && ~isinf(numSteps))
     error('numSteps should be a single positive integer')
+end
+
+% If stepTime is unspecified, set it to 0.2 seconds. If specified, it must
+% be a single number, with value at least 0
+if ~exist('stepTime', 'var') || isempty(stepTime)
+    stepTime = 0.2;
+elseif ~isscalar(stepTime) || stepTime < 0
+    error('stepTime must be a single number, with value at least 0')
 end
 
 %%
@@ -48,7 +60,7 @@ end
 for s=1:numSteps
     if strcmpi(displayOptions, 'continuous')
         % pause so each step is visible
-        pause(0.5)
+        pause(stepTime)
         % Check if the display has been closed. If so, proceed to end at 
         % full speed without display.
         if ~ishghandle(dispFig)
