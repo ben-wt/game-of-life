@@ -12,7 +12,7 @@ seedArray = zeros(10,10);
 reqArray = zeros(10,10);
 
 % run the engine
-outArray = gameOfLife(seedArray);
+outArray = gameOfLife(seedArray, []);
 
 % check output
 if isequal(outArray,reqArray)
@@ -242,7 +242,7 @@ for s = 1:length(arraySizes)
     reqArray = seedArray;
     
     % run the engine
-    outArray = gameOfLife(seedArray);
+    outArray = gameOfLife(seedArray, []);
 
     % check output
     if isequal(outArray,reqArray)

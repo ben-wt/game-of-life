@@ -6,7 +6,8 @@ function outArray = gameOfLife(seedArray, worldType)
 % seedArray - 2D matrix (0 for dead cells, 1 for live cells)
 % worldType - string
 %                   - 'torus' game world wraps around on itself to be
-%                   boundless (default value if unspecified)
+%                       boundless (default value if empty or unrecognised
+%                       input)
 %                   - 'finite' game world is finite, bounded grid
 %
 % OUTPUT
@@ -14,8 +15,9 @@ function outArray = gameOfLife(seedArray, worldType)
 %
 % BT, Feb 2019
 
-% default - if world type is unspecified, set to torus
-if nargin == 1
+% default - if world type is left empty, or unrecognised, set to torus
+possible_worldTypes = {'torus', 'finite'};
+if isempty(worldType) || all(~strcmp(worldType, possible_worldTypes))
     worldType = 'torus';
 end
 
