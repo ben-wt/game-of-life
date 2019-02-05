@@ -12,7 +12,7 @@ seedArray = zeros(10,10);
 reqArray = zeros(10,10);
 
 % run the engine
-outArray = gameOfLife(seedArray);
+outArray = gameOfLife(seedArray, []);
 
 % check output
 if isequal(outArray,reqArray)
@@ -50,7 +50,7 @@ seedArray{4} =  [   0     0     0;
 % run the engine and check each output - only need to check central cell
 success_tally = zeros(1, length(seedArray));
 for t = 1:length(seedArray)
-    outArray = gameOfLife(seedArray{t});
+    outArray = gameOfLife(seedArray{t}, []);
     if outArray(3,3) == 0
         success_tally(t) = 1;
     end
@@ -95,7 +95,7 @@ seedArray{4} =  [   0   0   0   0   0;
 % run the engine and check each output - only need to check central cell
 success_tally = zeros(1, length(seedArray));
 for t = 1:length(seedArray)
-    outArray = gameOfLife(seedArray{t});
+    outArray = gameOfLife(seedArray{t}, []);
     if outArray(3,3) == 0
         success_tally(t) = 1;
     end
@@ -151,7 +151,7 @@ seedArray{6} =  [   0   0   0   0   0;
 % run the engine and check each output - only need to check central cell
 success_tally = zeros(1, length(seedArray));
 for t = 1:length(seedArray)
-    outArray = gameOfLife(seedArray{t});
+    outArray = gameOfLife(seedArray{t}, []);
     if outArray(3,3) == 1
         success_tally(t) = 1;
     end
@@ -211,7 +211,7 @@ seedArray{6} =  [   0   0   0   0   0;
 % run the engine and check each output - only need to check central cell
 success_tally = zeros(1, length(seedArray));
 for t = 1:length(seedArray)
-    outArray = gameOfLife(seedArray{t});
+    outArray = gameOfLife(seedArray{t}, []);
     if outArray(3,3) == 1
         success_tally(t) = 1;
     end
@@ -242,7 +242,7 @@ for s = 1:length(arraySizes)
     reqArray = seedArray;
     
     % run the engine
-    outArray = gameOfLife(seedArray);
+    outArray = gameOfLife(seedArray, []);
 
     % check output
     if isequal(outArray,reqArray)
@@ -283,7 +283,7 @@ currentArray = seedArray;
 % run the engine and check each output - only need to check central cell
 success_tally = zeros(1, 2);
 for s = 1:2
-    currentArray = gameOfLife(currentArray);
+    currentArray = gameOfLife(currentArray, []);
     if isequal(currentArray,reqArray{s})
         success_tally(s) = 1;
     end
