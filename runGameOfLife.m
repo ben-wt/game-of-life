@@ -5,9 +5,9 @@ function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType
 % INPUT
 % seedArray - 2D matrix (0 for dead cells, 1 for live cells)
 % numSteps - positive integer, number of game steps to perform
-% displayOptions - string - 'continuous' displays progress of game frame-
-%                   by-frame with a 0.5 second pause. Any other value gives
-%                   no display.
+% displayOptions - string (case-insensitive)
+%                   - 'continuous' displays progress of game frame-by-frame
+%                   with 0.5 second pause. Any other value gives no display.
 % worldType - string, as per inputs to gameOfLife
 %
 % OUTPUT
@@ -20,10 +20,18 @@ function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType
 %
 % BT, Feb 2019
 
+%% validate numSteps input (seedArray & worldType already validated within gameOfLife)
+
+% numSteps should be a single positive integer
+if ~isscalar(numSteps) || rem(numSteps, 1) ~= 0 || numSteps < 1
+    error('numSteps should be a single positive integer')
+end
+
+%%
 % initialise
 currentArray = seedArray;
 
-if strcmp(displayOptions, 'continuous')
+if strcmpi(displayOptions, 'continuous')
     dispFig = figure;
     ax = axes;
     % draw grid 
@@ -38,7 +46,7 @@ end
     
 %run steps
 for s=1:numSteps
-    if strcmp(displayOptions, 'continuous')
+    if strcmpi(displayOptions, 'continuous')
         % pause so each step is visible
         pause(0.5)
         % Check if the display has been closed. If so, proceed to end at 
@@ -58,7 +66,7 @@ for s=1:numSteps
     end
     % carry out GoL step
     currentArray = gameOfLife(currentArray, worldType);
-    if strcmp(displayOptions, 'continuous')
+    if strcmpi(displayOptions, 'continuous')
         % CData - draw on the axes retaining existing formatting
         image('CData', currentArray, 'CDataMapping', 'scaled')
         % Label the generation number

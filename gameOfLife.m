@@ -15,11 +15,20 @@ function outArray = gameOfLife(seedArray, worldType)
 %
 % BT, Feb 2019
 
+%% check inputs are appropriate variable types
+
+% seedArray should be a 2D matrix, class 'double'
+if ~ismatrix(seedArray) || ~isa(seedArray,'double')
+    error('seedArray input to gameOfLife must be a 2D matrix with double-precision number format')
+end
+
 % default - if world type is left empty, or unrecognised, set to torus
 possible_worldTypes = {'torus', 'finite'};
 if isempty(worldType) || all(~strcmp(worldType, possible_worldTypes))
     worldType = 'torus';
 end
+
+%% run the step
 
 % if 'torus', pad the array and copy edges across for 'wrap around' effect
 if strcmp(worldType,'torus')
