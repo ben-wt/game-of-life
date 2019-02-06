@@ -23,7 +23,7 @@ if ~ismatrix(seedArray) || ~isa(seedArray,'double')
 end
 
 % default - if world type is left empty, or unrecognised, set to torus
-possible_worldTypes = {'torus', 'finite'};
+possible_worldTypes = {'torus', 'finite', 'expanding'};
 if isempty(worldType) || all(~strcmp(worldType, possible_worldTypes))
     worldType = 'torus';
 end
@@ -32,7 +32,7 @@ end
 
 % if 'torus', pad the array and copy edges across for 'wrap around' effect
 if strcmp(worldType,'torus')
-    seedArray = wrappad(seedArray);
+    seedArray = padarray(seedArray, [1 1], 'circular');
 end
 
 % use convolution to count the number of live neighbours for every cell
@@ -53,25 +53,3 @@ end
 outArray = double((seedArray & numNeighbours >= 2 & numNeighbours <= 3)...
             | (~seedArray & numNeighbours == 3));
 end
-
-function A2 = wrappad(A1)
-% pad the array and copy edges across for 'wrap around' effect
-
-% create array copy padded with zeros
-A2 = padarray(A1,[1 1]);
-
-% pad each edge by copying opposite edge
-A2(2:end-1,1) = A1(:,end);
-A2(2:end-1,end) = A1(:,1);
-A2(1, 2:end-1) = A1(end,:);
-A2(end, 2:end-1) = A1(1,:);
-
-% copy opposite corners
-A2(1,1) = A1(end,end);
-A2(1,end) = A1(end,1);
-A2(end,1) = A1(1,end);
-A2(end,end) = A1(1,1);
-
-end
-    
-
