@@ -6,7 +6,7 @@ The GoL is set in a 2D grid, in which cells are either live or dead and interact
 
 ## Requirements
 
-The game runs within the MATLAB application. Download the files, open MATLAB and add the files to the search path.
+The game is written in the MATLAB language and therefore runs within the MATLAB application. Download the files, open MATLAB and add the files to the search path.
 
 ## Usage
 
