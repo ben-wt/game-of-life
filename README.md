@@ -6,7 +6,12 @@ The GoL is set in a 2D grid, in which cells are either live or dead and interact
 
 ## Requirements
 
-The game is written in the MATLAB language and therefore runs within the MATLAB application. Download the files, open MATLAB and add the files to the search path.
+The game is written in the MATLAB language and therefore runs within the MATLAB application. Download the files to a folder, open MATLAB, add the folder (including subfolders) to the Search Path and make it the Current Folder, as follows:
+
+``` matlab
+addpath(genpath('C:/.../game-of-life/'));
+cd('C:/.../game-of-life/');
+```
 
 ## Usage
 
@@ -31,7 +36,7 @@ If the option to display is used, the game's changing state is presented on a gr
 * `torus` - game world wraps around on itself, so is unbounded
 * `finite` game world is finite, bounded grid
 
-`stepTime` - (positive number; OPTIONAL) if displayOptions is 'continuous', this pause (in seconds) per generation and will default to 0.2 if unspecified (N.B. this excludes processing time, which could be significant for extremely large game worlds)
+`stepTime` - (positive number; OPTIONAL) if displayOptions is 'continuous', this sets the pause (in seconds) per generation and will default to 0.2 if unspecified (N.B. this excludes processing time, which could be significant for extremely large game worlds)
 
 For example, to run from a given seed for 200 steps in an expanding game world and display it at a speed of 0.5 seconds per generation:
 
