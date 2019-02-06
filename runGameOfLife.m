@@ -105,7 +105,7 @@ for s=1:numSteps
         
         % if worldType is 'expanding', check if array has expanded and
         % display therefore needs to be re-formatted
-        if any(size(currentArray) ~= startArraySize) && strcmpi(worldType, 'expanding')
+        if strcmpi(worldType, 'expanding') && any(size(currentArray) ~= startArraySize)
             formatDisplay(ax, size(currentArray));
         end
         
