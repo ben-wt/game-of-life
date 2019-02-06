@@ -17,10 +17,8 @@ function outArray = runGameOfLife(seedArray, numSteps, displayOptions, worldType
 % OUTPUT
 % outArray - 2D matrix (0 for dead cells, 1 for live cells)
 %
-% "End now" button terminates the game early and outputs the state of the
-% array at that point.
-% Closing the display figure removes the display function and removes the
-% per-generation pause, accelerating the game directly to the end.
+% "End now" button, or closing the display figure, terminates the game
+% early and outputs the state of the array at that point.
 %
 % BT, Feb 2019
 
@@ -59,20 +57,17 @@ end
 %run steps
 for s=1:numSteps
     if strcmpi(displayOptions, 'continuous')
+        
         % pause so each step is visible
         pause(stepTime)
-        % Check if the display has been closed. If so, proceed to end at 
-        % full speed without display.
-        if ~ishghandle(dispFig)
-            displayOptions = 'none';        
-        else
-            % check if the 'stop' button has been pressed, if so halt and
-            % exit before performing this generation
-            drawnow
-            if stopButton.Value == 1
-                display(['Exited at generation ' num2str(s-1)]);
-                break
-            end
+
+        % check if the 'stop' button has been pressed, or the display
+        % has been closed. If so halt and exit before performing this
+        % generation
+        drawnow
+        if ~ishghandle(dispFig) || stopButton.Value == 1
+            display(['Exited at generation ' num2str(s-1)]);
+            break
         end
 
     end
